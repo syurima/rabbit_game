@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class AnimalController : MonoBehaviour
 {
-    public GameObject targetHole;
+    private GameObject targetHole;
     public float moveSpeed = 2.0f;
+
+    public void SetTargetHole(GameObject hole)
+    {
+        targetHole = hole;
+    }
 
     void Update()
     {
@@ -22,11 +27,18 @@ public class AnimalController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // disappear if the animal reaches A hole (even if it's not the target hole)
-        if (collision.CompareTag("Hole"))
-            {
-                // Destroy the animal
-                Destroy(gameObject);
-            }
+        // // disappear if the animal reaches A hole (even if it's not the target hole)
+        // if (collision.CompareTag("Hole"))
+        //     {
+        //         // Destroy the animal
+        //         Destroy(gameObject);
+        //     }
+
+        // disappear if the animal reaches THE target hole
+        if (collision.gameObject == targetHole)
+        {
+            // Destroy the animal
+            Destroy(gameObject);
+        }
     }
 }

@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    int mapSize = 20;
+    int mapSize = 10;
 
     public GameObject player;
 
-    private GameObject holePrefab;
-    public List<GameObject> holes = new List<GameObject>();
-    private GameObject animalPrefab;
-    public List<GameObject> animals = new List<GameObject>();
+    public GameObject holePrefab;
+    private List<GameObject> holes = new List<GameObject>();
+    public GameObject animalPrefab;
+    private List<GameObject> animals = new List<GameObject>();
 
     public float timeLimit = 60.0f;
     public float timeRemaining;
@@ -26,6 +26,9 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     void Awake()
     {
+        holePrefab.SetActive(false);
+        animalPrefab.SetActive(false);
+
         if (instance == null)
         {
             instance = this;
@@ -97,11 +100,14 @@ public class GameController : MonoBehaviour
             int holeX = Random.Range(0, mapSize);
             int holeY = Random.Range(0, mapSize);
 
-            // instantiate the hole
+            // instantiate and activate the hole
             GameObject hole = Instantiate(holePrefab, new Vector3(holeX, holeY, 0), Quaternion.identity);
+            hole.SetActive(true);
+
             holes.Add(hole);
         }
     }
+
     IEnumerator SpawnAnimals(float min_wait, float max_wait)
     {
         while (true)
@@ -117,9 +123,19 @@ public class GameController : MonoBehaviour
                 targetHoleIndex = Random.Range(0, holes.Count);
             }
 
-            GameObject animal = Instantiate(animalPrefab, holes[startHoleIndex].transform.position, Quaternion.identity);
+            //get animal from pool
+            GameObject animal = animals.Find(a => !a.activeSelf);
+            if (animal == null)
+            {
+                animal = Instantiate(animalPrefab, holes[startHoleIndex].transform.position, Quaternion.identity); //if there is no animal in the pool, create a new one
+            }
+            else
+            {
+                animal.transform.position = holes[startHoleIndex].transform.position;
+            }
+            animal.SetActive(true);
             AnimalController animalController = animal.GetComponent<AnimalController>();
-            animalController.targetHole = holes[targetHoleIndex];
+            animalController.SetTargetHole(holes[targetHoleIndex]);
             animals.Add(animal);
 
             // add the animal to the list of animals
