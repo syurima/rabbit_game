@@ -5,22 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public InputAction controls;
+    public InputActionReference movement;
     public float moveSpeed = 5.0f;
-
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
-    }
 
     void Update()
     {
-        Vector2 inputDirection = controls.ReadValue<Vector2>();
+        Vector2 inputDirection = movement.action.ReadValue<Vector2>();
         transform.position += new Vector3(inputDirection.x, inputDirection.y, 0) * moveSpeed * Time.deltaTime;
     }
 
