@@ -6,6 +6,8 @@ public class AnimalController : MonoBehaviour
 {
     private GameObject targetHole;
     public float moveSpeed = 2.0f;
+    
+    private float panicDistance = 3.5f;
 
     public void SetTargetHole(GameObject hole)
     {
@@ -14,15 +16,20 @@ public class AnimalController : MonoBehaviour
 
     void Update()
     {
-        if (targetHole != null)
+        // if near the player, run away
+        if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < panicDistance)
         {
+            transform.position = Vector3.MoveTowards(transform.position, PlayerController.instance.transform.position, -moveSpeed * Time.deltaTime);
+        }
+
+        // otherwise move towards the target hole
+        else if (targetHole != null)
+        {
+            // //add deviation to the target hole
+            // Vector3 deviation = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
+            // transform.position = Vector3.MoveTowards(transform.position, targetHole.transform.position + deviation, moveSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, targetHole.transform.position, moveSpeed * Time.deltaTime);
         }
-        // else
-        // {
-        //     // move randomly
-        //     transform.position += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0) * moveSpeed * Time.deltaTime;
-        // }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -8,12 +8,36 @@ public class PlayerController : MonoBehaviour
     public InputActionReference movement;
     public float moveSpeed = 5.0f;
 
-    void Update()
+    public static PlayerController instance;
+
+    void Awake()
     {
-        Vector2 inputDirection = movement.action.ReadValue<Vector2>();
-        transform.position += new Vector3(inputDirection.x, inputDirection.y, 0) * moveSpeed * Time.deltaTime;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+
+    void Update()
+    {
+        if (!GameController.instance.gameOver)
+        {
+            Move();
+        }
+        
+    }
+
+    void Move()
+    {
+        Vector2 moveDirection = movement.action.ReadValue<Vector2>();
+        transform.position += new Vector3(moveDirection.x, moveDirection.y, 0) * moveSpeed * Time.deltaTime;
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Animal"))

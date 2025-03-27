@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    int mapSize = 10;
+    int mapSizeX = 20;
+    int mapSizeY = 10;
 
     public GameObject player;
 
@@ -48,13 +48,16 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        UpdateUI();
-
+        if (!gameOver)
+        {
+            timeRemaining -= Time.deltaTime;
+            UpdateUI();
+        }
         if (timeRemaining <= 0)
         {
-            gameOver = true;
+            GameOver();
         }
+        UpdateUI();
     }
 
     void NewLevel(int level)
@@ -65,24 +68,24 @@ public class GameController : MonoBehaviour
         targetCount = 10 + level * 5;
 
         // reset player position
-        player.transform.position = new Vector3(mapSize / 2, mapSize / 2, 0);
+        player.transform.position = new Vector3(0, 0, 0);
 
         // generate new board
         // TODO
 
-        // generate new holes
-        holes.ForEach(Destroy);
-        holes.Clear();
-
+        // // generate holes
         GenerateHoles(10);
 
         // start spawning new animals
-        animals.ForEach(Destroy);
-        animals.Clear();
-
         StartCoroutine(SpawnAnimals(1.0f, 3.0f));
 
         UpdateUI();
+    }
+
+    void GameOver()
+    {
+        gameOver = true;
+        UIController.instance.GameOver();
     }
 
     void RestartGame()
@@ -97,14 +100,18 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             // generate a random position for the hole
-            int holeX = Random.Range(0, mapSize);
-            int holeY = Random.Range(0, mapSize);
+            int holeX = Random.Range(-mapSizeX/2, mapSizeX/2);
+            int holeY = Random.Range(-mapSizeY/2, mapSizeY/2);
 
-            // instantiate and activate the hole
-            GameObject hole = Instantiate(holePrefab, new Vector3(holeX, holeY, 0), Quaternion.identity);
-            hole.SetActive(true);
-
-            holes.Add(hole);
+            // try to get hole from list, if there is no hole in the list, create a new one
+            try {
+                GameObject hole = holes[i];
+                hole.transform.position = new Vector3(holeX, holeY, 0);
+            } catch {
+                GameObject hole = Instantiate(holePrefab, new Vector3(holeX, holeY, 0), Quaternion.identity);
+                holes.Add(hole);
+                hole.SetActive(true);
+            }
         }
     }
 
@@ -114,32 +121,32 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(min_wait, max_wait));
 
-            int startHoleIndex = Random.Range(0, holes.Count);
-            int targetHoleIndex = Random.Range(0, holes.Count);
+            if (animals.Count < targetCount) {
+                int startHoleIndex = Random.Range(0, holes.Count);
+                int targetHoleIndex = Random.Range(0, holes.Count);
 
-            // make sure the start and target holes are different
-            while (targetHoleIndex == startHoleIndex)
-            {
-                targetHoleIndex = Random.Range(0, holes.Count);
-            }
+                // make sure the start and target holes are different
+                while (targetHoleIndex == startHoleIndex)
+                {
+                    targetHoleIndex = Random.Range(0, holes.Count);
+                }
 
-            //get animal from pool
-            GameObject animal = animals.Find(a => !a.activeSelf);
-            if (animal == null)
-            {
-                animal = Instantiate(animalPrefab, holes[startHoleIndex].transform.position, Quaternion.identity); //if there is no animal in the pool, create a new one
+                // try to get animal from pool and set it to the start hole
+                GameObject animal = animals.Find(a => !a.activeSelf);
+                if (animal == null)
+                {
+                    // if there is no animal in the pool, create a new one
+                    animal = Instantiate(animalPrefab, holes[startHoleIndex].transform.position, Quaternion.identity); 
+                    animals.Add(animal);
+                }
+                else
+                {
+                    animal.transform.position = holes[startHoleIndex].transform.position;
+                }
+                AnimalController animalController = animal.GetComponent<AnimalController>();
+                animalController.SetTargetHole(holes[targetHoleIndex]);
+                animal.SetActive(true);
             }
-            else
-            {
-                animal.transform.position = holes[startHoleIndex].transform.position;
-            }
-            animal.SetActive(true);
-            AnimalController animalController = animal.GetComponent<AnimalController>();
-            animalController.SetTargetHole(holes[targetHoleIndex]);
-            animals.Add(animal);
-
-            // add the animal to the list of animals
-            animals.Add(animal);
         }
     }
 
@@ -157,7 +164,7 @@ public class GameController : MonoBehaviour
 
     void UpdateUI()
     {
-        UI.instance.Update();
+        UIController.instance.Update();
     }
 
 }

@@ -1017,8 +1017,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbcbc08b12eca9b4db0fd8c372a53855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
-  scoreText: {fileID: 0}
+  timerText: {fileID: 1107570546}
+  scoreText: {fileID: 1963622879}
   gameOverPanel: {fileID: 2019034213}
 --- !u!114 &1101453814
 MonoBehaviour:
@@ -3285,7 +3285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0efb7b148884c46afea35790109ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHole: {fileID: 0}
   moveSpeed: 2
 --- !u!1 &1493646392
 GameObject:
@@ -3347,6 +3346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1523742200}
+  ui: {fileID: 0}
   holePrefab: {fileID: 794813337}
   animalPrefab: {fileID: 1213580418}
   timeLimit: 60
@@ -3366,6 +3366,7 @@ GameObject:
   - component: {fileID: 1523742201}
   - component: {fileID: 1523742202}
   - component: {fileID: 1523742203}
+  - component: {fileID: 1523742204}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -3455,56 +3456,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c177cfd50ddf171449634d8008a01a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls:
-    m_Name: Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9e63290b-c38e-4cd3-ab2a-ff9a07bff104
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 4fae6993-ec50-43bc-83b2-5c4a3b24f28b
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Controls
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 4df70e3a-f3ca-4003-a908-e0a28b582deb
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Controls
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 2377688f-00ed-45b4-aedf-6b7cd0fc57da
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Controls
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 0b5dd85f-af73-46c2-bf08-ecb4f2d047ee
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Controls
-      m_Flags: 8
-    - m_Name: right
-      m_Id: ce4db59f-ce23-4fba-bfbf-d2a46338c091
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Controls
-      m_Flags: 8
-    m_Flags: 0
+  movement: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   moveSpeed: 5
+--- !u!114 &1523742204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523742200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1963622877
 GameObject:
   m_ObjectHideFlags: 0

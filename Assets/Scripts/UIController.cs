@@ -4,20 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI : MonoBehaviour
+public class UIController : MonoBehaviour
 {
-    public TextMeshPro timerText;
-    public TextMeshPro scoreText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI scoreText;
     public GameObject gameOverPanel;
 
-    public static UI instance;
+    public static UIController instance;
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            this.gameOverPanel.SetActive(false);
             DontDestroyOnLoad(gameObject);
+
+            this.gameOverPanel.SetActive(false);
         }
         else
         {
@@ -27,8 +28,10 @@ public class UI : MonoBehaviour
 
     public void Update()
     {
-        timerText.text = "Time: " + Mathf.Round(GameController.instance.timeRemaining).ToString();
-        if (Mathf.Round(GameController.instance.timeRemaining) < 10)
+        int time = (int)Mathf.Round(GameController.instance.timeRemaining);
+        // format the time to display as MM:SS
+        timerText.text = string.Format("{0:00}:{1:00}", time / 60, time % 60);
+        if (time < 10)
         {
             timerText.color = Color.red;
         }
@@ -38,10 +41,10 @@ public class UI : MonoBehaviour
         }
 
         scoreText.text = "Score: " + GameController.instance.score.ToString();
+    }
 
-        if (GameController.instance.gameOver)
-        {
-            gameOverPanel.SetActive(true);
-        }
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 }
