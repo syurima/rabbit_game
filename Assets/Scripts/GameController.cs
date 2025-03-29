@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
             animal.SetActive(false);
         }
         // start spawning new animals
-        StartCoroutine(SpawnAnimals(1.0f, 3.0f));
+        StartCoroutine(SpawnAnimals(0.5f, 2.0f));
     }
 
     void GameOver()
@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour
                 }
                 AnimalController animalController = animal.GetComponent<AnimalController>();
 
-                animalController.rb.position = holes[startHoleIndex].transform.position;
+                animal.transform.position = holes[startHoleIndex].transform.position;
                 animalController.SetTargetHole(holes[targetHoleIndex]);
                 animalController.timeOnField = 0.0f;
 
