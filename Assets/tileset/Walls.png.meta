@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: d91c58757ff12e34aae801b84fd5b076
+guid: f29f2b5746d70634c94afce3fc277cfa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2281647678458052734
-    second: grass_tiles_0
+      213: -3218248262026354849
+    second: Walls_0
+  - first:
+      213: 2551541108661590903
+    second: Walls_1
+  - first:
+      213: -5675400335168754034
+    second: Walls_2
+  - first:
+      213: 8296322472478124191
+    second: Walls_3
+  - first:
+      213: 7317334631700292629
+    second: Walls_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +84,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: grass_tiles_0
+      name: Walls_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +127,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28fb9ee6685f550e0800000000000000
-      internalID: -2281647678458052734
+      spriteID: f5f96e6b14c7653d0800000000000000
+      internalID: -3218248262026354849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grass_tiles_1
+      name: Walls_1
       rect:
         serializedVersion: 2
         x: 16
@@ -135,16 +147,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8565f007e7a677a42b794448e2260b0c
-      internalID: 235795170
+      spriteID: 77b9493ae15e86320800000000000000
+      internalID: 2551541108661590903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grass_tiles_2
+      name: Walls_2
       rect:
         serializedVersion: 2
         x: 32
@@ -157,16 +169,38 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7230c27f23017ac43a31f1be23a668cd
-      internalID: -163877460
+      spriteID: e8e2228f67dec31b0800000000000000
+      internalID: -5675400335168754034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grass_tiles_3
+      name: Walls_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f98262a3555722370800000000000000
+      internalID: 8296322472478124191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls_4
       rect:
         serializedVersion: 2
         x: 0
@@ -179,16 +213,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f37c542a6595f714a85e1b6479b91797
-      internalID: 11873720
+      spriteID: 514e82124156c8560800000000000000
+      internalID: 7317334631700292629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grass_tiles_4
+      name: Walls_5
       rect:
         serializedVersion: 2
         x: 16
@@ -203,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f8f06d4c23ccfc459bceb69d6811ada
-      internalID: -353140339
+      spriteID: 4b2c7959583d42d4bb32dd566653f4ab
+      internalID: -1111210120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grass_tiles_5
+      name: Walls_6
       rect:
         serializedVersion: 2
         x: 32
@@ -225,8 +259,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c17926c1aeec824439b098800314f5ca
-      internalID: 830074121
+      spriteID: 9015a6f6c0cd95b43bd140e532f4c164
+      internalID: -1835913539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls_7
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cae82f604df9214bb58ab46e65c6f1c
+      internalID: 1719186448
       vertices: []
       indices: 
       edges: []
@@ -235,7 +291,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b5e050916c90b1543961c08db26019b2
+    spriteID: 7316ae5176a0ff640aa522d272c6f3e0
     internalID: 0
     vertices: []
     indices: 
@@ -245,12 +301,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      grass_tiles_0: -2281647678458052734
-      grass_tiles_1: 235795170
-      grass_tiles_2: -163877460
-      grass_tiles_3: 11873720
-      grass_tiles_4: -353140339
-      grass_tiles_5: 830074121
+      Walls_0: -3218248262026354849
+      Walls_1: 2551541108661590903
+      Walls_2: -5675400335168754034
+      Walls_3: 8296322472478124191
+      Walls_4: 7317334631700292629
+      Walls_5: -1111210120
+      Walls_6: -1835913539
+      Walls_7: 1719186448
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

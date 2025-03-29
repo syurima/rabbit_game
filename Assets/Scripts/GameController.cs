@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    int mapSizeX = 20;
-    int mapSizeY = 10;
+    public int mapSizeX = 20;
+    public int mapSizeY = 10;
 
     public GameObject player;
 
@@ -38,6 +38,12 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // set camera position to the center of the map
+        Camera.main.transform.position = new Vector3(mapSizeX / 2, mapSizeY / 2, -10);
+        // set camera size to fit the map
+        Camera.main.orthographicSize = mapSizeY / 2 + 2;
+
     }
 
     void Start()
@@ -70,10 +76,11 @@ public class GameController : MonoBehaviour
         targetCount = 10 + level * 5;
 
         // reset player position
-        player.transform.position = new Vector3(0, 0, 0);
+        player.transform.position = new Vector3(mapSizeX / 2, mapSizeY / 2, 0);
 
         // generate new board
-        // TODO
+        BoardDisplay.instance.Clear();
+        BoardDisplay.instance.DrawMap();
 
         // // generate holes
         GenerateHoles(10);
@@ -103,8 +110,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             // generate a random position for the hole
-            int holeX = Random.Range(-mapSizeX/2, mapSizeX/2);
-            int holeY = Random.Range(-mapSizeY/2, mapSizeY/2);
+            int holeX = Random.Range(1, mapSizeX - 1);
+            int holeY = Random.Range(1, mapSizeY - 1);
 
             // try to get hole from list, if there is no hole in the list, create a new one
             try {
