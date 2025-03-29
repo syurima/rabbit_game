@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public float timeLimit = 60.0f;
     public float timeRemaining;
     public int targetCount = 10;
-    private int caughtCount;
+    public int caughtCount;
 
     public int score = 0;
     public int level = 0;
@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         level = 0;
+        score = 0;
         NewLevel(level);
     }
 
@@ -51,13 +52,14 @@ public class GameController : MonoBehaviour
         if (!gameOver)
         {
             timeRemaining -= Time.deltaTime;
+
+            // check if time is up
+            if (timeRemaining <= 0)
+            {
+                GameOver();
+            }
             UpdateUI();
         }
-        if (timeRemaining <= 0)
-        {
-            GameOver();
-        }
-        UpdateUI();
     }
 
     void NewLevel(int level)
@@ -76,23 +78,24 @@ public class GameController : MonoBehaviour
         // // generate holes
         GenerateHoles(10);
 
+        // set all animals to inactive
+        foreach (GameObject animal in animals)
+        {
+            animal.SetActive(false);
+        }
         // start spawning new animals
         StartCoroutine(SpawnAnimals(1.0f, 3.0f));
-
-        UpdateUI();
     }
 
     void GameOver()
     {
         gameOver = true;
-        UIController.instance.GameOver();
     }
 
-    void RestartGame()
+    public void RestartGame()
     {
-        level = 0;
-        NewLevel(level);
-        score = 0;
+        gameOver = false;
+        Start();
     }
 
     void GenerateHoles(int count)
@@ -121,7 +124,7 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(min_wait, max_wait));
 
-            if (animals.Count < targetCount) {
+            if (holes.Count > 0 && animals.Count < targetCount) {
                 int startHoleIndex = Random.Range(0, holes.Count);
                 int targetHoleIndex = Random.Range(0, holes.Count);
 
@@ -139,12 +142,13 @@ public class GameController : MonoBehaviour
                     animal = Instantiate(animalPrefab, holes[startHoleIndex].transform.position, Quaternion.identity); 
                     animals.Add(animal);
                 }
-                else
-                {
-                    animal.transform.position = holes[startHoleIndex].transform.position;
-                }
                 AnimalController animalController = animal.GetComponent<AnimalController>();
+
+                animalController.rb.position = holes[startHoleIndex].transform.position;
                 animalController.SetTargetHole(holes[targetHoleIndex]);
+                animalController.timeOnField = 0.0f;
+
+                // set the animal to active
                 animal.SetActive(true);
             }
         }
@@ -153,6 +157,7 @@ public class GameController : MonoBehaviour
     public void OnAnimalCaught()
     {
         caughtCount++;
+        score += 100 + (int)(level * 10);
         UpdateUI();
 
         if (caughtCount >= targetCount)

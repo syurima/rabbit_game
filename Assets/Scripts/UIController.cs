@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI caughtText;
     public GameObject gameOverPanel;
 
     public static UIController instance;
@@ -40,11 +41,13 @@ public class UIController : MonoBehaviour
             timerText.color = Color.white;
         }
 
-        scoreText.text = "Score: " + GameController.instance.score.ToString();
+        scoreText.text = "Score: " + (GameController.instance.score).ToString();
+        caughtText.text = "Caught: " + (GameController.instance.caughtCount).ToString() + "/" + (GameController.instance.targetCount).ToString();
+        gameOverPanel.SetActive(GameController.instance.gameOver);
     }
 
-    public void GameOver()
-    {
-        gameOverPanel.SetActive(true);
-    }
+    // public void GameOver()
+    // {
+    //     gameOverPanel.SetActive(true);
+    // }
 }
