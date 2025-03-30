@@ -12,7 +12,8 @@ public class VolumeController: MonoBehaviour {
 
     void Start () {  
         audio = this.GetComponent<AudioSource> ();
-        savedVolume = volumeSlider.value;
+        savedVolume = audio.volume;
+        volumeSlider.value = savedVolume;
     }
     
     public void UpdateVolume () {

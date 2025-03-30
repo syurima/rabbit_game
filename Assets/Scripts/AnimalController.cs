@@ -18,12 +18,15 @@ public class AnimalController : MonoBehaviour
 
     public float timeOnField = 0.0f;
 
-
+    private Animator animator;
     public Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -47,6 +50,18 @@ public class AnimalController : MonoBehaviour
     void Update()
     {
         timeOnField += Time.deltaTime;
+
+        animator.SetFloat("xVelocity", rb.linearVelocity.x);
+
+        if (rb.linearVelocity.x > 0)
+        {
+            // flip x
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     private void OnEnable()

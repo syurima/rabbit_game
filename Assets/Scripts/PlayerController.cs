@@ -11,7 +11,10 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController instance;
 
+    private Animator animator;
     private Rigidbody2D rb;
+    private AudioSource audioSource;
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
@@ -25,7 +28,10 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -33,6 +39,23 @@ public class PlayerController : MonoBehaviour
         if (!GameController.instance.gameOver)
         {
             Move();
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        animator.SetFloat("xVelocity", rb.linearVelocity.x);
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
+
+        if (rb.linearVelocity.x < 0)
+        {
+            // flip x
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
         }
     }
 
@@ -52,6 +75,16 @@ public class PlayerController : MonoBehaviour
             GameController.instance.OnAnimalCaught();
         }
     }
+
+
+    public void PlayFootstepSound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+    }
+
 
     void OnDisable()
     {
