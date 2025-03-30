@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(min_wait, max_wait));
 
-            if (holes.Count > 0 && animals.Count < targetCount) {
+            if (holes.Count > 0 && animals.Count < 8) {
                 int startHoleIndex = Random.Range(0, holes.Count);
                 int targetHoleIndex = Random.Range(0, holes.Count);
 
