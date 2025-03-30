@@ -70,6 +70,10 @@ public class GameController : MonoBehaviour
 
     void NewLevel(int level)
     {
+        // stop spawning animals
+        StopAllCoroutines();
+        
+        // reset time limit and target count
         timeRemaining = timeLimit + level * 10;
 
         caughtCount = 0;
@@ -90,6 +94,7 @@ public class GameController : MonoBehaviour
         {
             animal.SetActive(false);
         }
+
         // start spawning new animals
         StartCoroutine(SpawnAnimals(0.5f, 2.0f));
     }

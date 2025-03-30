@@ -31,8 +31,9 @@ public class AnimalController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(UpdateDeviation());
+        // StartCoroutine(UpdateDeviation());
     }
+
 
     private IEnumerator UpdateDeviation()
     {
@@ -71,6 +72,7 @@ public class AnimalController : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             StartCoroutine(chooseDirection());
+            StartCoroutine(UpdateDeviation());
         }
     }
 
